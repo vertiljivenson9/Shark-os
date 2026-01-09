@@ -1,0 +1,1 @@
+export class PackageManager { async init() {} isSystemApp(id:string){return false;} async install(id:string) {} async installVPX(p:string){} async uninstall(id:string){} }

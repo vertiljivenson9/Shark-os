@@ -1,0 +1,1 @@
+export class NetworkStack { async init() {} async request(url: string) { const r = await fetch(url); return await r.text(); } }

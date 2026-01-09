@@ -1,0 +1,1 @@
+export class GestureRecognizer { attach(el: HTMLElement){} addListener(cb:any){} }

@@ -1,0 +1,9 @@
+import React, { useState, useEffect } from 'react';
+import { kernel } from '../services/kernel';
+import { Folder, File, HardDrive, Shield } from 'lucide-react';
+export const FilesApp = () => {
+  const [path, setPath] = useState('/user/home');
+  const [items, setItems] = useState<string[]>([]);
+  useEffect(() => { kernel.fs.ls(path).then(setItems).catch(() => setItems([])); }, [path]);
+  return <div className="flex h-full bg-gray-100 text-black"><div className="w-48 bg-gray-200 p-2"><button onClick={() => setPath('/')} className="block w-full text-left p-2 hover:bg-white">Root</button><button onClick={() => setPath('/user/home')} className="block w-full text-left p-2 hover:bg-white">Home</button><button onClick={() => setPath('/user/secure')} className="block w-full text-left p-2 hover:bg-white flex gap-2"><Shield size={16}/> Vault</button></div><div className="flex-1 p-4"><div className="mb-4 font-bold">{path}</div><div className="grid grid-cols-6 gap-4">{path!=='/'&&<div onClick={() => setPath(path.substring(0, path.lastIndexOf('/')) || '/')} className="cursor-pointer flex flex-col items-center"><Folder className="text-yellow-500" size={40}/>..</div>}{items.map(i => <div key={i} onClick={() => i.endsWith('/') ? setPath((path==='/'?'':path)+'/'+i.slice(0,-1)) : kernel.launchApp('editor', {file: (path==='/'?'':path)+'/'+i})} className="cursor-pointer flex flex-col items-center p-2 hover:bg-blue-100 rounded">{i.endsWith('/')?<Folder className="text-yellow-500" size={40}/>:<File className="text-gray-500" size={40}/>}<span className="text-xs mt-1 truncate w-full text-center">{i.replace('/','')}</span></div>)}</div></div></div>;
+};

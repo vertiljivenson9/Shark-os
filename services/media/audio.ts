@@ -1,0 +1,1 @@
+export class AudioMixer { private ctx = new AudioContext(); private gain = this.ctx.createGain(); constructor() { this.gain.connect(this.ctx.destination); } async init() {} setMasterVolume(v:number) { this.gain.gain.value = v; } resume() { this.ctx.resume(); } setMute(m:boolean){} getMute(){return false;} }

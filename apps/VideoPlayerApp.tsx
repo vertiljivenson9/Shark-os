@@ -1,0 +1,2 @@
+import React from 'react';
+export const VideoPlayerApp: React.FC<{file?:string}> = ({file}) => <div className="h-full bg-black flex items-center justify-center"><video src={file || "https://media.w3.org/2010/05/sintel/trailer.mp4"} controls className="max-w-full max-h-full"/></div>;

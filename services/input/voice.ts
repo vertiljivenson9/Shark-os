@@ -1,0 +1,1 @@
+export class VoiceControl { subscribe(cb:any){return ()=>{}} toggle(){} }

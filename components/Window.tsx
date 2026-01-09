@@ -1,0 +1,8 @@
+import React, { useState } from 'react';
+import { X, Minus, Square, Maximize2 } from 'lucide-react';
+export const Window: React.FC<any> = ({ state, onClose, onMinimize, onMaximize, onFocus, onUpdate, children }) => {
+  const [drag, setDrag] = useState(false);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  if (state.isMinimized) return null;
+  return <div style={{ left: state.isMaximized?0:state.x, top: state.isMaximized?0:state.y, width: state.isMaximized?'100%':state.width, height: state.isMaximized?'100%':state.height, zIndex: state.zIndex, position: 'absolute' }} className="bg-[#1e293b] border border-[#334155] shadow-2xl rounded-lg overflow-hidden flex flex-col" onMouseDown={() => onFocus(state.id)}><div className="h-10 bg-[#334155]/50 flex items-center px-3 select-none" onMouseDown={(e) => { if (!state.isMaximized) { setDrag(true); setOffset({ x: e.clientX - state.x, y: e.clientY - state.y }); } }} onDoubleClick={() => onMaximize(state.id)} onMouseUp={() => setDrag(false)} onMouseMove={(e) => { if (drag) onUpdate(state.id, { x: e.clientX - offset.x, y: e.clientY - offset.y }); }}><span className="text-gray-200 text-sm flex-1">{state.title}</span><div className="flex gap-2"><button onClick={() => onMinimize(state.id)}><Minus size={14} color="white"/></button><button onClick={() => onMaximize(state.id)}>{state.isMaximized ? <Square size={12} color="white"/> : <Maximize2 size={12} color="white"/>}</button><button onClick={() => onClose(state.id)}><X size={14} color="red"/></button></div></div><div className="flex-1 overflow-hidden bg-[#0f172a] relative">{children}</div></div>;
+};

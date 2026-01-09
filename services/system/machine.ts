@@ -1,0 +1,1 @@
+export class MachineIdentity { static getMachineId() { return 'mach-' + crypto.randomUUID(); } }
